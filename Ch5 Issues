@@ -1,16 +1,3 @@
-#--- From the Book ----
-
-install.packages("car") 
-install.packages("ggplot2")
-install.packages("pastecs") 
-install.packages("psych")
-
-library(car)
-library(ggplot2) 
-library(pastecs) 
-library(psych);
-library(Rcmdr)
-
 #---- What to Install ----
 install.packages("car", dependencies = TRUE)
 install.packages("ggplot2", dependencies = TRUE)
@@ -18,8 +5,10 @@ install.packages("pastecs", dependencies = TRUE)
 install.packages("psych", dependencies = TRUE)
 install.packages("Rcmdr", dependencies = TRUE)
 install.packages("rlang", dependencies = TRUE)
+install.packages("ellipse", dependencies = TRUE)
 
 #--- Libraries ----
+library(ellipse)
 library(car)
 library(ggplot2)
 library(pastecs)
@@ -37,13 +26,6 @@ example <- read.table("example.dat", header = TRUE, sep = "\t")
 
 #---- replace example and example.dat with the variable name you choose and the data file name ---
 
-#---- From the book -----
-hist.day1 <- ggplot(dlf, aes(day1)) + opts(legend.position = "none") +
-geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
-labs(x = "Hygiene score on day 1", y = "Density")
-
-hist.day1
-
 #--- Opts no longer works, replace with theme -----
 hist.day1 <- ggplot(dlf, aes(day1)) + theme(legend.position = "none") +
 geom_histogram(aes(y = ..density..), colour = "black", fill = "white") +
@@ -52,24 +34,12 @@ labs(x = "Hygiene score on day 1", y = "Density")
 hist.day1
 
 #----- FROM THE BOOK: Stat is depreciated, so we will reword this ---
-qqplot.day1 <- qplot(sample = dlf$day1, stat="qq")
-
-ggplot.day1
-
 #---- New Code for Stat ----
 ggplot.day1 <- qplot(dlf$day1, aes(sample = dlf$day1)) + stat_qq()
 
 qqplot.day1
 
 #----- Q-Q Plots not working, change out Opts again ----
-hist.day1 <- ggplot(dlf, aes(day1)) + opts(legend.position = "none") + geom_
-histogram(aes(y = ..density..), colour = "black", fill = "white") + labs(x =
-"Hygiene score on day 1", y = "Density") + stat_function(fun = dnorm, args =
-list(mean = mean(dlf$day1, na.rm = TRUE), sd = sd(dlf$day1, na.rm = TRUE)), colour
-= "black", size = 1)
-
-hist.day1
-
 #----- New Code -----
 hist.day1 <- ggplot(dlf, aes(day1)) + theme(legend.position = "none") + geom_
 histogram(aes(y = ..density..), colour = "black", fill = "white") + labs(x =
@@ -80,16 +50,6 @@ list(mean = mean(dlf$day1, na.rm = TRUE), sd = sd(dlf$day1, na.rm = TRUE)), colo
 hist.day1
 
 #----- Similar issues for RExam example ----
-hist.numeracy.duncetown <- ggplot(dunceData, aes(numeracy)) + opts(legend.
-position = "none") + geom_histogram(aes(y = ..density..), fill = "white",
-colour = "black", binwidth = 1) + labs(x = "Numeracy Score", y = "Density")
-+ stat_function(fun=dnorm, args=list(mean = mean(dunceData$numeracy,
-na.rm = TRUE), sd = sd(dunceData$numeracy, na.rm = TRUE)), colour = "blue",
-size=1)
-
-hist.numeracy.duncetown
-
-
 #---- Use this code instead -----
 hist.numeracy.duncetown <- ggplot(dunceData, aes(numeracy)) + theme(legend.position = "none") + 
  geom_histogram(aes(y = ..density..), fill = "white", colour = "black", binwidth = 1) + 
@@ -99,12 +59,7 @@ hist.numeracy.duncetown <- ggplot(dunceData, aes(numeracy)) + theme(legend.posit
 hist.numeracy.duncetown
 
 
-#----- Wilxocon ----
-install.packages("WRS", repos="http://R-Forge.R-project.org")
-library(WRS)
-source("http://www-rcf.usc.edu/~rwilcox/Rallfun-v14") #<<<-- No longer exists ---
-
-#----- New Code ----
+#--- bootstrapping and M-estimators described by Rand Wilcox ----
 install.packages("WRS", repos="http://R-Forge.R-project.org")
 library(WRS)
 source("https://dornsife.usc.edu/assets/sites/239/docs/Rallfun-v40.txt")
