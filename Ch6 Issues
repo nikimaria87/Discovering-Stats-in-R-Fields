@@ -1,0 +1,28 @@
+#--- Install Packages ---
+install.packages("Hmisc", dependencies = TRUE) 
+install.packages("ggm", dependencies = TRUE)
+install.packages("ggplot2", dependencies = TRUE)
+install.packages("polycor", dependencies = TRUE) 
+
+#*** All Packages from Ch. 5 Should already be installed. ***
+
+#--- Libraries ---
+library(boot) 
+library(ellipse)
+library(ggm) 
+library(ggplot2) 
+library(Hmisc)
+library(polycor)
+library(car)
+library(ellipse)
+library(ggplot2)
+library(pastecs)
+library(psych)
+library(rlang)
+library(Rcmdr)
+
+#--- If you are unable to get R Commander working, you can use the following code for 
+#--- Pearson Correlations. The Output will be the same. ----
+rcorr.adjust(examData[,c("Anxiety","Exam","Revise")], type="pearson")
+
+
