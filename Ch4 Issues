@@ -334,14 +334,13 @@ scatter <- ggplot(lecturerData, aes(neurotic, alcohol, colour = job))
 scatter + geom_point() + geom_smooth(method = "lm", aes(fill = job), alpha = 0.1) + labs(x = "Neuroticism", y = "Alcohol Consumption", colour = "job")
 
 #-------------------------Smart Alex Task 2
-
-infidelityData = read.delim("Infidelity Data.csv", header = TRUE)
+infidelityData = read.csv("Infidelity.csv", header = TRUE)
 
 #------plot a clustered error bar chart of the mean number of bullets used against the self and the partner for males and females.
 
 infidelityData$id = row(infidelityData[1])
-Bullets = reshape(infidelityData, idvar = c("id", "Gender"), varying = c("Partner", "Self"), v.names = "Number_of_Bullets", timevar = "Recipient", times = c(0:1), direction = "long")
-Bullets$Recipient<-factor(Bullets$Recipient, labels = c("Partner","Self"))
+Bullets = reshape(data = infidelityData, idvar = c("id", "Gender"), varying = c("Partner", "Self"), v.names = "Number_of_Bullets", timevar = "Recipient", times = c(0:1), direction = "long")
+Bullets$Recipient<- factor(Bullets$Recipient, labels = c("Partner","Self"))
 bar <- ggplot(Bullets, aes(Recipient, Number_of_Bullets, fill = Gender))
-bar + stat_summary(fun.y = "mean", geom = "bar", position="dodge")
-bar + stat_summary(fun.y = "mean", geom = "bar", position="dodge") + stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", position=position_dodge(width=0.90), width = 0.2) + labs(x ="Recipient", y ="Number of Bullets", fill = "Gender")
+bar + stat_summary(fun = "mean", geom = "bar", position="dodge")
+bar + stat_summary(fun = "mean", geom = "bar", position="dodge") + stat_summary(fun.data = "mean_cl_normal", geom = "errorbar", position=position_dodge(width=0.90), width = 0.2) + labs(x ="Recipient", y ="Number of Bullets", fill = "Gender")
